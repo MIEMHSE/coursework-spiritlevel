@@ -1,5 +1,6 @@
 /output/
 /src/
+/tmp/
 
 *.log
 *.aux
