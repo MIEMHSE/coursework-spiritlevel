@@ -1,0 +1,13 @@
+/output/
+/src/
+
+*.log
+*.aux
+*.pdf
+*.synctex.gz
+
+# TeXlipse
+.project
+.texlipse
+.settings
+
