@@ -37,13 +37,13 @@
 Пределы измерений&Частота выборки, Гц&Погр-ть
 нуля, mg&Разрешение, mg\\
 \hline
-MMA7450		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&250	&15.6 \\
-MMA7660		&3		&2.4 -- 3.6~В	&I2C		&\pm1.5g						&1 -- 120	&64		&21.33 \\
-MMA7455		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&330	&15.6 \\
-ADXL345		&3		&2.0 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g, \pm16g	&0.1 -- 3200&150	&3.9 \\
-SMB380		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&25 -- 1500	&60		&4 \\
-LIS202DL	&2		&2.2 -- 3.6~В	&I2C, SPI	&\pm2g, \pm8g					&100, 400	&40		&18 \\
-LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I2C		&\pm2g, \pm4g, \pm8g			&			&60		&1 \\
+MMA7450		&3		&2.4 -- 3.6~В	&I\textsubscript{2}C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&250	&15.6 \\
+MMA7660		&3		&2.4 -- 3.6~В	&I\textsubscript{2}C		&\pm1.5g						&1 -- 120	&64		&21.33 \\
+MMA7455		&3		&2.4 -- 3.6~В	&I\textsubscript{2}C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&330	&15.6 \\
+ADXL345		&3		&2.0 -- 3.6~В	&I\textsubscript{2}C, SPI	&\pm2g, \pm4g, \pm8g, \pm16g	&0.1 -- 3200&150	&3.9 \\
+SMB380		&3		&2.4 -- 3.6~В	&I\textsubscript{2}C, SPI	&\pm2g, \pm4g, \pm8g			&25 -- 1500	&60		&4 \\
+LIS202DL	&2		&2.2 -- 3.6~В	&I\textsubscript{2}C, SPI	&\pm2g, \pm8g					&100, 400	&40		&18 \\
+LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I\textsubscript{2}C		&\pm2g, \pm4g, \pm8g			&			&60		&1 \\
 \hline
 \end{tabular}}
 \medskip
@@ -55,7 +55,7 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I2C		&\pm2g, \pm4g, \pm8g			&			&60		&1 \\
 \subsubsection{Характеристики акселерометра MMA7660}
 Неплохим выбором, исходя из таблицы~\ref{tabular:accelerometer_compare_common}, является MMA7660 компании Freescale Semiconductor, имеющий следующие технические характеристики:
 \begin{itemize}
-	\item цифровой вывод (I2C);
+	\item цифровой вывод (I\textsubscript{2}C);
 	\item 3mm x 3mm x 0.9mm DFN-чип; 
 	\item низкое энергопотребление;
 	\item настраиваемую частоту снятия показаний от 1 до 120 в секунду;
@@ -97,16 +97,16 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I2C		&\pm2g, \pm4g, \pm8g			&			&60		&1 \\
 \hline
 Номер ножки&Наименование&Описание&Статус \\
 \hline
-1 	&RESERVED 	&Connect to AVSS 												&Вход \\
-2 	&N/C 		&No Internal Connection, leave unconnected or connect to Ground	&Вход \\
-3 	&AVDD 		&Device Power 													&Вход \\
-4 	&AVSS 		&Device Ground 													&Вход \\
-5 	&INT 		&Interrupt/Data Ready 											&Выход \\
-6 	&SCL 		&I2C Serial Clock 												&Вход \\
-7 	&SDA 		&I2C Serial Data 												&Open Drain \\
-8 	&DVSS 		&Digital I/O Ground 											&Вход \\
-9 	&DVDD 		&Digital I/O Power 												&Вход \\
-10 	&N/C 		&No Internal Connection, recommended to connect to Ground		&Вход \\
+1 	&RESERVED 	&Подключается к AVSS											&Вход \\
+2 	&N/C 		&Без соединения, подключается к заземлению						&Вход \\
+3 	&AVDD 		&Питание устройства												&Вход \\
+4 	&AVSS 		&Заземление устройства											&Вход \\
+5 	&INT 		&Прерывание/готовность данных									&Выход \\
+6 	&SCL 		&Тактовые импульсы I\textsubscript{2}C 							&Вход \\
+7 	&SDA 		&Последовательные данные I\textsubscript{2}C					&Открытый коллектор \\
+8 	&DVSS 		&Цифровое заземление I/O										&Вход \\
+9 	&DVDD 		&Цифровое питание I/O											&Вход \\
+10 	&N/C 		&Без соединения, подключается к заземлению						&Вход \\
 \hline
 \end{tabular}}
 \medskip
@@ -114,13 +114,28 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I2C		&\pm2g, \pm4g, \pm8g			&			&60		&1 \\
 \label{tabular:mma7660fc_scheme}
 \end{table}
 
-На рисунке~\ref{fig:mma7660fc_connection} представлена схема подключения акселерометра к микроконтроллеру.
+\clearpage
+\subsubsection{Подключение акселерометра MMA7660 к микроконтроллеру}
+Акселерометр MMA7660 подключается к микроконтроллеру с использованием протокола I\textsubscript{2}C. Схема подключения представлена на рисунке~\ref{fig:mma7660fc_connection}.
 
 \begin{figure}[here]
 \centering
 \includegraphics[width=0.7\linewidth]{mma7660fc_connection}
 \caption{Цоколевка и функциональное устройство акселерометра MMA7660}
 \label{fig:mma7660fc_connection}
+\end{figure}
+
+Входы AVDD и DVDD подключаются к источнику питания, входы AVSS и DVSS (опцио\-нально, входы N/C) подключаются к заземлению, выход INT подключается к микрокон\-троллеру
+напрямую, а контакты SCL и SDA из-за использования открытых коллекторов, подключаются с использованием подтягивающих резисторов на 4.7 кОм.
+
+\clearpage
+\subsubsection{Тайминги акселерометра MMA7660}
+На рисунке~\ref{fig:mma7660fc_timing_common} показан общий тайминг протокола I\textsubscript{2}C, используемого акселерометром для передачи и приема данных с микроконтроллера.
+\begin{figure}[here]
+\centering
+\includegraphics[width=0.8\linewidth]{mma7660fc_timing_common}
+\caption{Общий тайминг протокола I\textsubscript{2}C акселерометра MMA7660}
+\label{fig:mma7660fc_timing_common}
 \end{figure}
 
 \end{document}
