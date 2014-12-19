@@ -115,7 +115,7 @@
 \usepackage{geometry}
 \geometry{left=2cm} % левое поле
 \geometry{right=1.5cm} % правое поле
-\geometry{top=1cm} % верхнее поле
+\geometry{top=2cm} % верхнее поле
 \geometry{bottom=2cm} % нижнее поле
 
 \usepackage{indentfirst}
@@ -124,6 +124,19 @@
 %\setlength{\parindent}{1cm}
 
 \usepackage{algorithm2e}
+ 
+\usepackage{rotating}
+\usepackage[tableposition=top]{caption}
+\usepackage{subcaption}
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+\DeclareCaptionLabelFormat{gosttable}{Таблица #2}
+\DeclareCaptionLabelFormat{gostlisting}{Листинг #2}
+\DeclareCaptionLabelSeparator{gost}{~---~}
+\captionsetup{labelsep=gost}
+\captionsetup[figure]{labelformat=gostfigure}
+\captionsetup[table]{labelformat=gosttable}
+\captionsetup[listing]{labelformat=gostlisting}
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
  
 % Перечисления цифра.цифра
 \renewcommand{\theenumi}{\arabic{enumi}}
@@ -144,6 +157,8 @@
 \input{titlelist}
 
 % Тело документа
+\subfile{chapters} % Содержание
+\clearpage
 \subfile{purpose} % Цель работы
 \subfile{input} % Исходные данные
 \clearpage
@@ -154,4 +169,6 @@
 \subfile{results} % Результаты
 \clearpage
 \subfile{conclusion} % Заключение
+\clearpage
+\subfile{literature}
 \end{document}
