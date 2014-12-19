@@ -156,21 +156,41 @@ SDA. При этом на самом микроконтроллере выста
 В качестве устройства вывода для отображения отклонения от горизонтали, решено выбрать дисплей LCD-NHD-C12832A1Z, имеющий следующие технические характеристики:
 \begin{itemize}
 	\item 128 x 32 пикселей;
-	\item 4-портовый интерфейс SPI;
+	\item 4-канальный интерфейс SPI;
 	\item встроенный контроллер ST7565R;
 	\item вольтаж +3.0В;
 	\item скважность 33; диапазон рабочих напряжений 1/6;
 	\item совместимость с RoHS.\cite{display}
 \end{itemize}
 \subsubsection{Схема подключения дисплея LCD-NHD-C12832A1Z к микроконтроллеру}
-Дисплей LCD-NHD-C12832A1Z подключается к микроконтроллеру с использованием протокола SPI с четырьмя каналами. Схема подключения представлена на
-рисунке~\ref{fig:display_connection}.
+Дисплей LCD-NHD-C12832A1Z подключается к микроконтроллеру с использованием про\-токола SPI с четырьмя каналами. Схема подключения представлена на
+рисунке~\ref{fig:display_connection}. Помимо входа источника питания VDD и входа заземления VSS, входов питания для подключения конденсаторов, также присутствует вход питания A и
+вход заземления K для подсветки дисплея, вход сброса /RST. Для интерфейса SPI предусмотрены входы /CS1 (Chip Select), SCL (Serial Clock), SI (Master Output, Slave Input), а также
+канал выбора регистра инструкций или данных A0.\cite{display, lcd_interfaces}
 
 \begin{figure}[here]
 \centering
 \includegraphics[width=0.6\linewidth]{display_connection}
 \caption{Схема подключения дисплея LCD-NHD-C12832A1Z к микроконтроллеру}
 \label{fig:display_connection}
+\end{figure}
+
+\clearpage
+\subsubsection{Тайминги дисплея LCD-NHD-C12832A1Z}
+На рисунке~\ref{fig:display_timing} показан общий тайминг 4-канального протокола SPI, используемого дисплеем для приема данных с микроконтроллера.
+\begin{figure}[here]
+\centering
+\includegraphics[width=0.8\linewidth]{display_timing}
+\caption{Общий тайминг протокола SPI дисплея LCD-NHD-C12832A1Z}
+\label{fig:display_timing}
+\end{figure}
+
+На рисунке~\ref{fig:display_timing_reset} приведен тайминг сброса дисплея LCD-NHD-C12832A1Z.
+\begin{figure}[here]
+\centering
+\includegraphics[width=0.8\linewidth]{display_timing_reset}
+\caption{Тайминг сброса дисплея LCD-NHD-C12832A1Z}
+\label{fig:display_timing_reset}
 \end{figure}
 
 \end{document}
