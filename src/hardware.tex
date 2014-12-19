@@ -19,14 +19,41 @@
 объектов относительно гравита\-ционного поля Земли, можно реализовать функционал,
 характерный для уровней.
 
-Между цифровыми и аналоговыми акселерометрами, следудет выбрать цифровые, так
+Между цифровыми и аналоговыми акселерометрами, следует выбрать цифровые, так
 как они не требуют внешних компонентов, и не требуют никаких расчётов: все их
 метро\-логические характеристики указаны. Стоить они будут дороже аналоговых, но
 время, затра\-чиваемое на разработку системы
 снижается.\cite{accelerometer_compare}
 
 Общие сравнительные характеристики цифровых акселерометров указаны в таблице~\ref{tabular:accelerometer_compare_common}.
-Неплохим выбором, исходя из этой таблицы, получается MMA7660 компании Freescale Semiconductor, имеющий следующие ТТХ:
+
+\begin{table}[h]
+\medskip
+\resizebox{\linewidth}{!}{
+\tabcolsep=2pt
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Модель&Кол-во осей&Напряжение питания&Интерфейс&
+Пределы измерений&Частота выборки, Гц&Погр-ть
+нуля, mg&Разрешение, mg\\
+\hline
+MMA7450		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&250	&15.6 \\
+MMA7660		&3		&2.4 -- 3.6~В	&I2C		&\pm1.5g						&1 -- 120	&64		&21.33 \\
+MMA7455		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&330	&15.6 \\
+ADXL345		&3		&2.0 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g, \pm16g	&0.1 -- 3200&150	&3.9 \\
+SMB380		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&25 -- 1500	&60		&4 \\
+LIS202DL	&2		&2.2 -- 3.6~В	&I2C, SPI	&\pm2g, \pm8g					&100, 400	&40		&18 \\
+LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I2C		&\pm2g, \pm4g, \pm8g			&			&60		&1 \\
+\hline
+\end{tabular}}
+\medskip
+\caption{Общие характеристики цифровых акселерометров}
+\label{tabular:accelerometer_compare_common}
+\end{table}
+
+\clearpage
+\subsubsection{Характеристики акселерометра MMA7660}
+Неплохим выбором, исходя из таблицы~\ref{tabular:accelerometer_compare_common}, является MMA7660 компании Freescale Semiconductor, имеющий следующие технические характеристики:
 \begin{itemize}
 	\item цифровой вывод (I2C);
 	\item 3mm x 3mm x 0.9mm DFN-чип; 
@@ -49,28 +76,51 @@
 	\item цифровые камеры: стабилизация изображения. \cite{accelerometer_mma7660}
 \end{itemize}
 
-\noindent
-\begin{sidewaystable}
-\caption{Общие характеристики цифровых акселерометров}
-\label{tabular:accelerometer_compare_common}
+\clearpage
+\subsubsection{Устройство акселерометра MMA7660}
+Цоколевка и функциональное устройство акселерометра MMA7660 представлены на ри\-сунке~\ref{fig:mma7660fc_pinout_scheme}.
+
+\begin{figure}[here]
+\centering
+\includegraphics[width=1\linewidth]{mma7660fc_pinout_scheme}
+\caption{Цоколевка и функциональное устройство акселерометра MMA7660}
+\label{fig:mma7660fc_pinout_scheme}
+\end{figure}
+
+В таблице~\ref{tabular:mma7660fc_scheme} представлено описание выходов и выходов акселерометра MMA7660FC. 
+
+\begin{table}[h]
 \medskip
 \resizebox{\linewidth}{!}{
 \tabcolsep=2pt
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-\toprule
-Модель&Количество осей&Напряжение питания&Интерфейс&
-Пределы измерений&Частота выборки, Гц&Погрешность
-нуля, mg&Разрешение, mg\\
 \hline
-MMA7450		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&250	&15.6 \\
-MMA7660		&3		&2.4 -- 3.6~В	&I2C		&\pm1.5g						&1 -- 120	&64		&21.33 \\
-MMA7455		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&125, 250	&330	&15.6 \\
-ADXL345		&3		&2.0 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g, \pm16g	&0.1 -- 3200&150	&3.9 \\
-SMB380		&3		&2.4 -- 3.6~В	&I2C, SPI	&\pm2g, \pm4g, \pm8g			&25 -- 1500	&60		&4 \\
-LIS202DL	&2		&2.2 -- 3.6~В	&I2C, SPI	&\pm2g, \pm8g					&100, 400	&40		&18 \\
-LSM303DLM	&$3 + 3$&2.16 -- 3.6~В	&I2C		&\pm2g, \pm4g, \pm8g			&			&60		&1 \\
-\bottomrule
+Номер ножки&Наименование&Описание&Статус \\
+\hline
+1 	&RESERVED 	&Connect to AVSS 												&Вход \\
+2 	&N/C 		&No Internal Connection, leave unconnected or connect to Ground	&Вход \\
+3 	&AVDD 		&Device Power 													&Вход \\
+4 	&AVSS 		&Device Ground 													&Вход \\
+5 	&INT 		&Interrupt/Data Ready 											&Выход \\
+6 	&SCL 		&I2C Serial Clock 												&Вход \\
+7 	&SDA 		&I2C Serial Data 												&Open Drain \\
+8 	&DVSS 		&Digital I/O Ground 											&Вход \\
+9 	&DVDD 		&Digital I/O Power 												&Вход \\
+10 	&N/C 		&No Internal Connection, recommended to connect to Ground		&Вход \\
+\hline
 \end{tabular}}
-\end{sidewaystable}
+\medskip
+\caption{Общие характеристики цифровых акселерометров}
+\label{tabular:mma7660fc_scheme}
+\end{table}
+
+На рисунке~\ref{fig:mma7660fc_connection} представлена схема подключения акселерометра к микроконтроллеру.
+
+\begin{figure}[here]
+\centering
+\includegraphics[width=0.7\linewidth]{mma7660fc_connection}
+\caption{Цоколевка и функциональное устройство акселерометра MMA7660}
+\label{fig:mma7660fc_connection}
+\end{figure}
 
 \end{document}
