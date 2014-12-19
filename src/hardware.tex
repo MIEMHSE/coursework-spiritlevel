@@ -88,7 +88,7 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I\textsuperscript{2}C		&\pm2g, \pm4g, \pm8g			
 \label{fig:mma7660fc_pinout_scheme}
 \end{figure}
 
-В таблице~\ref{tabular:mma7660fc_scheme} представлено описание выходов и выходов акселерометра MMA7660FC. 
+В таблице~\ref{tabular:mma7660fc_scheme} представлено описание выходов и выходов акселерометра MMA7660. 
 
 \begin{table}[h]
 \medskip
@@ -148,6 +148,29 @@ SDA. При этом на самом микроконтроллере выста
 \includegraphics[width=0.8\linewidth]{mma7660fc_timing_byte}
 \caption{Общий тайминг протокола I\textsuperscript{2}C акселерометра MMA7660}
 \label{fig:mma7660fc_timing_byte}
+\end{figure}
+
+\clearpage
+\subsection{Дисплей}
+\subsubsection{Общие характеристики дисплея LCD-NHD-C12832A1Z}
+В качестве устройства вывода для отображения отклонения от горизонтали, решено выбрать дисплей LCD-NHD-C12832A1Z, имеющий следующие технические характеристики:
+\begin{itemize}
+	\item 128 x 32 пикселей;
+	\item 4-портовый интерфейс SPI;
+	\item встроенный контроллер ST7565R;
+	\item вольтаж +3.0В;
+	\item скважность 33; диапазон рабочих напряжений 1/6;
+	\item совместимость с RoHS.\cite{display}
+\end{itemize}
+\subsubsection{Схема подключения дисплея LCD-NHD-C12832A1Z к микроконтроллеру}
+Дисплей LCD-NHD-C12832A1Z подключается к микроконтроллеру с использованием протокола SPI с четырьмя каналами. Схема подключения представлена на
+рисунке~\ref{fig:display_connection}.
+
+\begin{figure}[here]
+\centering
+\includegraphics[width=0.6\linewidth]{display_connection}
+\caption{Схема подключения дисплея LCD-NHD-C12832A1Z к микроконтроллеру}
+\label{fig:display_connection}
 \end{figure}
 
 \end{document}
