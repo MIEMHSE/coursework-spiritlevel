@@ -1,5 +1,210 @@
 \documentclass[document.tex]{subfiles}
 \begin{document}
 \section{Исходные коды}
+\subsection{Общая концепция программной части}
+Общая концепция программной части подразумевает подключение модулей классов и дальнейшее использование их в виде объектов. Для каждого из объектов в бесконечном цикле вызывается
+метод loop, который определяется в каждом из классов и предназначен для выполнения действий, проходящих за одну итерацию глобального цикла. В этот метод в виде аргументов
+передается глобальное состояние~--- ассоциативный массив пар ключ (наименование класса) -- значение (ассоциативный массив, возвращаемый переменной state после завершения процедуры
+loop). Код основного модуля с бесконечным циклом, который предварительно импортирует классы получения значений с акселерометра (AccelInfo), вывода значений на дисплей (AccelPlot) и
+изменения состояния светодиодов (LEDAccel), пред\-ставлен в листинге~\ref{lst:spiritlevel}.
+
+\begin{listing}[ht]
+\begin{minted}[linenos=true]{python}
+__author__ = 'Sergey Sobko'
+
+import pyb
+
+# Подключаем необходимые модули
+from plot import AccelPlot
+from led import LEDAccel
+from accel import AccelInfo
+
+# Для каждого импортированного класса создаем объекты
+board_classes = [AccelInfo, AccelPlot, LEDAccel]
+board_objects = [board_class() for board_class in board_classes]
+
+# Создаем пустой ассоциативный массив глобального состояния
+global_state = dict()
+
+# Бесконечный цикл
+while True:
+    
+    # Для каждого из объектов
+    for board_object in board_objects:
+
+        # Вызываем метод loop с передачей ассоциативного массива 
+        # глобального состояния
+        board_object.loop(**global_state)
+        
+        # Обновляем ассоциативный массив глобального состояния
+        # значениями из свойства state объекта
+        global_state.update({
+            board_object.__class__.__name__: board_object.state
+        })
+\end{minted}
+\caption{spiritlevel.py -- основной модуль с бесконечным циклом}
+\label{lst:spiritlevel}
+\end{listing}
+
+\clearpage
+\subsection{Получение значений с акселерометра}
+
+Код класса получения значений с акселерометра представлен в листинге~\ref{lst:accel}.
+
+\begin{listing}[ht]
+\begin{minted}[linenos=true]{python}
+__author__ = 'Sergey Sobko'
+
+import pyb
+
+INIT_DELAY = 20  # Задержка для калибровки
+LOOP_DELAY = 0  # Задержка между итерациями
+
+
+# Класс для получения значений акселерометра
+class AccelInfo(object):
+    x, y, z = None, None, None
+    tilt = None
+
+    # Инициализация класса акселерометра
+    def __init__(self):
+        self.accel = pyb.Accel()  # Инициализация аппаратного модуля
+        pyb.delay(INIT_DELAY)  # Задержка для калибровки
+
+    # Итерация цикла
+    def loop(self, **kwargs):
+        # Получаем фильтрованные значения (от -90 до 90) по трем осям
+        self.x, self.y, self.z = self.accel.filtered_xyz()
+        
+        # Получаем состояния регистра встряхивания
+        self.tilt = self.accel.tilt()
+        
+        # Задерживаем исполнение, если предусмотрена задержка цикла
+        if LOOP_DELAY:
+            pyb.delay(LOOP_DELAY)
+
+    # Получение значений отклонения по трем осям и регистра встряхивания
+    @property
+    def state(self):
+        return {
+            'x': self.x,
+            'y': self.y,
+            'z': self.z,
+            'tilt': self.tilt
+        }
+\end{minted}
+\caption{accel/\_\_init\_\_.py -- модуль получения значений с акселерометра}
+\label{lst:accel}
+\end{listing}
+
+\clearpage
+\subsection{Управление светодиодами}
+
+Код класса управления светодиодами представлен в листинге~\ref{lst:led}.
+
+\begin{listing}[ht]
+\begin{minted}[linenos=true]{python}
+__author__ = 'Sergey Sobko'
+
+import pyb
+
+ACCEL_EPS_X = 30
+ACCEL_EPS_Y = 30
+ACCEL_EPS_TILT = 50
+
+
+class LEDAccel(object):
+    def __init__(self):
+        self.led = pyb.LED(3)
+        self.led_tilt = pyb.LED(2)
+        self.on = False
+        self.on_tilt_counter = 0
+
+    def loop(self, **kwargs):
+        accel_info = kwargs.get('AccelInfo')
+        self.on = False
+        if accel_info:  # Есть данные с акселерометра
+            x, y, z, tilt = map(accel_info.get, ['x', 'y', 'z', 'tilt'])
+            if abs(x) > ACCEL_EPS_X or abs(y) > ACCEL_EPS_Y:
+                self.on = True
+            if tilt > ACCEL_EPS_TILT:
+                self.on_tilt_counter = 10
+                self.led_tilt.on()
+
+        # Проверка кол-ва прошедших тактов светодиода регистра встряхивания
+        if self.on_tilt_counter > 0:
+            self.on_tilt_counter -= 1
+        else:
+            self.led_tilt.off()
+            self.on_tilt_counter = 0
+
+        # Если превышение максимально допустимого отклонения по X, Y, Z
+        if self.on:
+            self.led.on()
+        else:
+            self.led.off()
+
+    @property
+    def state(self):
+        return dict(on=self.on, led=self.led)
+\end{minted}
+\caption{led/\_\_init\_\_.py -- управления светодиодами}
+\label{lst:led}
+\end{listing}
+
+
+\clearpage
+\subsection{Вывод на дисплей}
+Код класса вывода информации на дисплей представлен в листинге~\ref{lst:lcd}.
+
+\begin{listing}[ht]
+\begin{minted}[linenos=true]{python}
+__author__ = 'Sergey Sobko'
+
+import pyb
+
+LOOP_DELAY_GRAPHICS = 10
+MAXX = 127.0
+MAXY = 31.0
+ACCEL_COEFF_X = MAXX / 90 / 2
+ACCEL_COEFF_Y = MAXY / 90 / 2
+
+
+class AccelPlot(Plot):
+    # Инициализация и подсвечивание LCD
+    def __init__(self):
+        self.lcd = pyb.LCD('X')
+        self.lcd.light(True) 
+    
+    # Вывод по точкам прямоугольника из центра LCD до (x, y)
+    def draw_square_for_accel(self, x, y):
+        min_x = int(min(MAXX / 2 + x * ACCEL_COEFF_X, MAXX / 2))
+        max_x = int(max(MAXX / 2 + x * ACCEL_COEFF_X, MAXX / 2))
+        min_y = int(min(MAXY / 2 - y * ACCEL_COEFF_Y, MAXY / 2))
+        max_y = int(max(MAXY / 2 - y * ACCEL_COEFF_Y, MAXY / 2))
+        for x in range(min_x, max_x):
+            self.lcd.pixel(x, min_y, 1)
+            self.lcd.pixel(x, max_y, 1)
+        for y in range(min_y, max_y):
+            self.lcd.pixel(min_x, y, 1)
+            self.lcd.pixel(max_x, y, 1)
+
+    def loop(self, **kwargs):
+        accel_info = kwargs.get('AccelInfo')
+        if accel_info:  # Есть данные с акселерометра
+            x, y, z = map(accel_info.get, ['x', 'y', 'z'])
+            self.lcd.fill(0)
+            self.draw_square_for_accel(x, y)
+            if LOOP_DELAY_GRAPHICS:
+                pyb.delay(LOOP_DELAY_GRAPHICS)
+            self.lcd.show()
+            
+    @property
+    def state(self):
+        return dict(lcd=self.lcd)
+\end{minted}
+\caption{plot/\_\_init\_\_.py -- вывод информации на дисплей}
+\label{lst:lcd}
+\end{listing}
 
 \end{document}
