@@ -81,9 +81,9 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I\textsuperscript{2}C		&\pm2g, \pm4g, \pm8g			
 \subsubsection{Устройство акселерометра MMA7660}
 Цоколевка и функциональное устройство акселерометра MMA7660 представлены на ри\-сунке~\ref{fig:mma7660fc_pinout_scheme}.
 
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=1\linewidth]{mma7660fc_pinout_scheme}
+\includegraphics[width=1\linewidth,keepaspectratio]{mma7660fc_pinout_scheme}
 \caption{Цоколевка и функциональное устройство акселерометра MMA7660}
 \label{fig:mma7660fc_pinout_scheme}
 \end{figure}
@@ -119,10 +119,10 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I\textsuperscript{2}C		&\pm2g, \pm4g, \pm8g			
 \subsubsection{Подключение акселерометра MMA7660 к микроконтроллеру}
 Акселерометр MMA7660 подключается к микроконтроллеру с использованием протокола I\textsuperscript{2}C. Схема подключения представлена на рисунке~\ref{fig:mma7660fc_connection}.
 
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.7\linewidth]{mma7660fc_connection}
-\caption{Цоколевка и функциональное устройство акселерометра MMA7660}
+\includegraphics[width=0.7\linewidth,keepaspectratio]{mma7660fc_connection}
+\caption{Подключение акселерометра MMA7660 к микроконтроллеру}
 \label{fig:mma7660fc_connection}
 \end{figure}
 
@@ -132,9 +132,9 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I\textsuperscript{2}C		&\pm2g, \pm4g, \pm8g			
 \clearpage
 \subsubsection{Тайминги акселерометра MMA7660}
 На рисунке~\ref{fig:mma7660fc_timing_common} показан общий тайминг протокола I\textsuperscript{2}C, используемого акселерометром для передачи и приема данных с микроконтроллера.
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\linewidth]{mma7660fc_timing_common}
+\includegraphics[width=0.8\linewidth,keepaspectratio]{mma7660fc_timing_common}
 \caption{Общий тайминг протокола I\textsuperscript{2}C акселерометра MMA7660}
 \label{fig:mma7660fc_timing_common}
 \end{figure}
@@ -143,9 +143,9 @@ LSM303DLM	&3 + 3	&2.16 -- 3.6~В	&I\textsuperscript{2}C		&\pm2g, \pm4g, \pm8g			
 SDA. При этом на самом микроконтроллере выставляется высокий уровень. Тайминг передачи байта и подтверждения передачи приведен на
 рисунке~\ref{fig:mma7660fc_timing_byte}.\cite{accelerometer_mma7660}
 
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\linewidth]{mma7660fc_timing_byte}
+\includegraphics[width=0.8\linewidth,keepaspectratio]{mma7660fc_timing_byte}
 \caption{Общий тайминг протокола I\textsuperscript{2}C акселерометра MMA7660}
 \label{fig:mma7660fc_timing_byte}
 \end{figure}
@@ -168,9 +168,9 @@ SDA. При этом на самом микроконтроллере выста
 вход заземления K для подсветки дисплея, вход сброса /RST. Для интерфейса SPI предусмотрены входы /CS1 (Chip Select), SCL (Serial Clock), SI (Master Output, Slave Input), а также
 канал выбора регистра инструкций или данных A0.\cite{display, lcd_interfaces}
 
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.6\linewidth]{display_connection}
+\includegraphics[width=0.6\linewidth,keepaspectratio]{display_connection}
 \caption{Схема подключения дисплея LCD-NHD-C12832A1Z к микроконтроллеру}
 \label{fig:display_connection}
 \end{figure}
@@ -178,17 +178,17 @@ SDA. При этом на самом микроконтроллере выста
 \clearpage
 \subsubsection{Тайминги дисплея LCD-NHD-C12832A1Z}
 На рисунке~\ref{fig:display_timing} показан общий тайминг 4-канального протокола SPI, используемого дисплеем для приема данных с микроконтроллера.
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\linewidth]{display_timing}
+\includegraphics[width=0.8\linewidth,keepaspectratio]{display_timing}
 \caption{Общий тайминг протокола SPI дисплея LCD-NHD-C12832A1Z}
 \label{fig:display_timing}
 \end{figure}
 
 На рисунке~\ref{fig:display_timing_reset} приведен тайминг сброса дисплея LCD-NHD-C12832A1Z.
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\linewidth]{display_timing_reset}
+\includegraphics[width=0.8\linewidth,keepaspectratio]{display_timing_reset}
 \caption{Тайминг сброса дисплея LCD-NHD-C12832A1Z}
 \label{fig:display_timing_reset}
 \end{figure}
@@ -266,9 +266,9 @@ device/host/OTG контроллер с выде\-ленной DMA, полнос
 \clearpage
 \subsubsection{Функциональная схема микроконтроллера STM32F405RGT6}
 На рисунке~\ref{fig:mcu} представлена общая функциональная схема блоков семейства микрокон\-троллеров STM32F40x.
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.91\linewidth]{stm32f40x}
+\includegraphics[width=0.91\linewidth,keepaspectratio]{stm32f40x}
 \caption{Функциональная схема семейства микроконтроллеров STM32F40x}
 \label{fig:mcu}
 \end{figure}
@@ -276,16 +276,16 @@ device/host/OTG контроллер с выде\-ленной DMA, полнос
 \clearpage
 \subsubsection{Цоколевка микроконтроллера STM32F405RGT6}
 На рисунке~\ref{fig:mcu_pinout} показана цоколевка микроконтроллера STM32F405RGT6. В представленной цоколевке все контакты, начинающиеся с V являются контактами питания;
-контакт BOOT0 (60)~--- только ввода; все остальнеы являются программируемыми контактами ввода-вывода со следующей структурой:
+контакт BOOT0 (60)~--- только ввода; все остальные являются программируемыми контактами ввода-вывода со следующей структурой:
 \begin{itemize}
 	\item NRST~(7)~--- двунаправленный контакт перезагрузки с встроенным слабым подтягива\-ющим резистором;
-	\item PA4~(21), PA5~(22)~--- поддерживающие 3.3 В входы/выходы, присоединяемые напрямую к аналогово-цифровому преобразователю;
-	\item все остальные~--- поддерживающие 5 В входы/выходы.\cite{mcu}
+	\item PA4~(21), PA5~(22)~--- поддерживающие +3.3 В входы/выходы, присоединяемые напрямую к аналогово-цифровому преобразователю;
+	\item все остальные~--- поддерживающие +5 В входы/выходы.\cite{mcu}
 \end{itemize}
 
-\begin{figure}[here]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.6\linewidth]{mcu_pinout}
+\includegraphics[width=0.6\linewidth,keepaspectratio]{mcu_pinout}
 \caption{Цоколевка микроконтроллера STM32F405RGT6}
 \label{fig:mcu_pinout}
 \end{figure}
@@ -298,5 +298,53 @@ device/host/OTG контроллер с выде\-ленной DMA, полнос
 интерпретатора на платформу ARM Cortex-M4, именуемый MicroPython. Аппаратное обеспечение, поставляемое для разработки и отладки программного обеспечения, разработанного на
 MicroPython, называется PyBoard и включает в себя такие компоненты как микроконтроллер STM32F405RGT6 и акселерометр MMA7660. В комплект на отдельной печатной плате, включающей в
 себя сенсоры управления, также входит дисплей LCD-NHD-C12832A1Z, оптимизированный для работы с MicroPython.\cite{pyboard_hardware}
+
+\clearpage
+\subsubsection{Принципиальная схема PyBoard}
+Принципиальная схема платы PyBoard представлена на рисунке~\ref{fig:scheme1}, а платы LCD-модуля на рисунке~\ref{fig:scheme2}. На рисунках отсутствуют части, не задействованные в
+разработке программно-аппаратного комплекса (найти их можно в официальной документации).
+
+Соединения микроконтроллера (U1A) к акселерометру (U3) реализованы следующим образом:
+\begin{itemize}
+	\item PB2-BOOT1-MMA-INT~(28 / 5);
+	\item PB5-MMA\_AVDD~(57 / 3);
+	\item PB6-SCL-X9~(58 / 6);
+	\item PB7-SDA-X10~(59 / 7).
+\end{itemize}
+
+Соединения микроконтроллера (U1A, U1B) к дисплею (LCD1) реализованы следующим образом:
+\begin{itemize}
+	\item PA2-X3 / LCD-CS1~(16 / 17)
+	\item PA3-X4 / LCD-RST~(17 / 16)
+	\item PA4-X5 / LCD-A0~(20 / 15)
+	\item PA5-X6 / LCD-SCL~(21 / 14)
+	\item PA7-X8 / LCD-SI~(23 / 13)
+	\item PC5-X12 / LCD-BL~(25 / подсветка)
+\end{itemize}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=0.9\linewidth,keepaspectratio]{scheme1}
+\caption{Принципиальная схема PyBoard}
+\label{fig:scheme1}
+\end{sidewaysfigure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth,keepaspectratio]{scheme2}
+\caption{Принципиальная схема платы LCD-модуля}
+\label{fig:scheme2}
+\end{figure}
+
+\clearpage
+\subsubsection{Цоколевка печатной платы PyBoard}
+Цоколевка печатной платы PyBoard представлена на рисунке~\ref{fig:pinout}. На рисунке в соответ\-ствие контактам платы (pin name) поставлены контакты микроконтроллера STM32F405RGT6
+(CPU name), более детализованно которые отмечены на рисунке~\ref{fig:scheme1}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth,keepaspectratio]{pinout}
+\caption{Цоколевка печатной платы PyBoard}
+\label{fig:pinout}
+\end{figure}
 
 \end{document}
